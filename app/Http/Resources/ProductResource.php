@@ -16,7 +16,7 @@ class ProductResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'categories' => CategoryResource::collection($this->categories),
+            'categories' => CategoryResource::collection($this->categories)->map(fn ($category) => ['id' => $category->id, 'name' => $category->category_name]),
             'name' => $this->product_name,
             'description' => $this->product_desc,
             'qty' => $this->product_qty,
