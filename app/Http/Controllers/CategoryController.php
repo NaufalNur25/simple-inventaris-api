@@ -13,7 +13,21 @@ use Spatie\QueryBuilder\QueryBuilder;
 class CategoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *      path="/category",
+     *      tags={"Category"},
+     *      summary="List of Category",
+     *
+     *      @OA\Parameter(in="query", required=false, name="filter[category_name]", @OA\Schema(type="string"), example=""),
+     *      @OA\Parameter(in="query", required=false, name="sort", @OA\Schema(type="string"), example=""),
+     *      @OA\Parameter(in="query", required=false, name="page", @OA\Schema(type="string"), example=""),
+     *      @OA\Parameter(in="query", required=false, name="rows", @OA\Schema(type="string"), example=""),
+     *
+     *      @OA\Response(
+     *          response=200,
+     *          description="success",
+     *      ),
+     * )
      */
     public function index(Request $request)
     {
@@ -40,7 +54,53 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *      path="/category",
+     *      tags={"Category"},
+     *      summary="Store Category",
+     *
+     *      @OA\RequestBody(
+     *         description="Body",
+     *         required=true,
+     *
+     *         @OA\JsonContent(
+     *
+     *              @OA\Property(property="category_name", ref="#/components/schemas/Category/properties/category_name"),
+     *
+     *         ),
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=201,
+     *          description="success",
+     *
+     *          @OA\JsonContent(
+     *
+     *              @OA\Property(property="success", type="boolean", example="true"),
+     *              @OA\Property(property="message", type="string", example="Data sukses disimpan."),
+     *              @OA\Property(property="data", ref="#/components/schemas/Category"),
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response="422",
+     *          description="error",
+     *
+     *          @OA\JsonContent(
+     *
+     *              @OA\Property(property="message", type="string", example="category_name field is required."),
+     *              @OA\Property(
+     *                  property="errors",
+     *                  type="array",
+     *
+     *                  @OA\Items(
+     *
+     *                      @OA\Property(property="category_name", type="array", @OA\Items(example={"category_name field is required."}))
+     *                  )
+     *              ),
+     *          ),
+     *      ),
+     * )
      */
     public function store(CategoryRequest $request)
     {
@@ -50,7 +110,18 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *      path="/category/{category}",
+     *      tags={"Category"},
+     *      summary="Category details",
+     *
+     *      @OA\Parameter(in="path", required=true, name="category", @OA\Schema(type="integer"), description="category_id"),
+     *
+     *      @OA\Response(
+     *          response=200,
+     *          description="success",
+     *      ),
+     * )
      */
     public function show(Category $category)
     {
@@ -58,7 +129,55 @@ class CategoryController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *      path="/category/{category}",
+     *      tags={"Category"},
+     *      summary="Update of Category",
+     *
+     *      @OA\Parameter(in="path", required=true, name="category", @OA\Schema(type="integer"), description="category_id"),
+     *
+     *      @OA\RequestBody(
+     *         description="Body",
+     *         required=true,
+     *
+     *         @OA\JsonContent(
+     *
+     *              @OA\Property(property="category_name", ref="#/components/schemas/Category/properties/category_name"),
+     *
+     *         ),
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=200,
+     *          description="success",
+     *
+     *          @OA\JsonContent(
+     *
+     *              @OA\Property(property="success", type="boolean", example="true"),
+     *              @OA\Property(property="message", type="string", example="Data sukses disimpan."),
+     *              @OA\Property(property="data", ref="#/components/schemas/Category"),
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response="422",
+     *          description="error",
+     *
+     *          @OA\JsonContent(
+     *
+     *              @OA\Property(property="message", type="string", example="category_name field is required."),
+     *              @OA\Property(
+     *                  property="errors",
+     *                  type="array",
+     *
+     *                  @OA\Items(
+     *
+     *                      @OA\Property(property="category_name", type="array", @OA\Items(example={"category_name field is required."}))
+     *                  )
+     *              ),
+     *          ),
+     *      ),
+     * )
      */
     public function update(CategoryRequest $request, Category $category)
     {
@@ -68,7 +187,18 @@ class CategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *      path="/category/{category}",
+     *      tags={"Category"},
+     *      summary="Category Removal",
+     *
+     *      @OA\Parameter(in="path", required=true, name="category", @OA\Schema(type="integer"), description="category_id"),
+     *
+     *      @OA\Response(
+     *          response=204,
+     *          description="",
+     *      ),
+     * )
      */
     public function destroy(Category $category)
     {
