@@ -17,7 +17,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $rows = 10;
+        $rows = 5;
         if ($request->filled('rows')) {
             $rows = $request->rows;
         }
