@@ -282,6 +282,376 @@
                     }
                 }
             }
+        },
+        "/product": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "List of Product",
+                "operationId": "22905e1f44768d097e237b248ae28fdc",
+                "parameters": [
+                    {
+                        "name": "filter[keyword]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": ""
+                    },
+                    {
+                        "name": "filter[product_qty]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": ""
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": ""
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": ""
+                    },
+                    {
+                        "name": "rows",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Store Product",
+                "operationId": "06b7daeb9d561c7a65b00f309b5ed31b",
+                "requestBody": {
+                    "description": "Body",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "category_id": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "product_name": {
+                                        "$ref": "#/components/schemas/Product/properties/product_name"
+                                    },
+                                    "product_desc": {
+                                        "$ref": "#/components/schemas/Product/properties/product_desc"
+                                    },
+                                    "product_release_date": {
+                                        "$ref": "#/components/schemas/Product/properties/product_release_date"
+                                    },
+                                    "product_acquisition_date": {
+                                        "$ref": "#/components/schemas/Product/properties/product_acquisition_date"
+                                    },
+                                    "product_qty": {
+                                        "$ref": "#/components/schemas/Product/properties/product_qty"
+                                    },
+                                    "product_acquisition_cost": {
+                                        "$ref": "#/components/schemas/Product/properties/product_acquisition_cost"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data sukses disimpan."
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Product"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "product_name field is required."
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "product_name": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "example": [
+                                                                "product_name field is required."
+                                                            ]
+                                                        }
+                                                    },
+                                                    "product_acquisition_date": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "example": [
+                                                                "product_acquisition_date field is required."
+                                                            ]
+                                                        }
+                                                    },
+                                                    "product_qty": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "example": [
+                                                                "product_qty field is required."
+                                                            ]
+                                                        }
+                                                    },
+                                                    "product_acquisition_cost": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "example": [
+                                                                "product_acquisition_cost field is required."
+                                                            ]
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product/{product}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Product details",
+                "operationId": "26d6494770e2019867f8b11aa325d31b",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "description": "product_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Update of Product",
+                "operationId": "5d4d275e7de1ae4a1d485ed74b5fc0f1",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "description": "product_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Body",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "category_id": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "product_name": {
+                                        "$ref": "#/components/schemas/Product/properties/product_name"
+                                    },
+                                    "product_desc": {
+                                        "$ref": "#/components/schemas/Product/properties/product_desc"
+                                    },
+                                    "product_release_date": {
+                                        "$ref": "#/components/schemas/Product/properties/product_release_date"
+                                    },
+                                    "product_acquisition_date": {
+                                        "$ref": "#/components/schemas/Product/properties/product_acquisition_date"
+                                    },
+                                    "product_qty": {
+                                        "$ref": "#/components/schemas/Product/properties/product_qty"
+                                    },
+                                    "product_acquisition_cost": {
+                                        "$ref": "#/components/schemas/Product/properties/product_acquisition_cost"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data sukses disimpan."
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Category"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "category_name field is required."
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "product_name": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "example": [
+                                                                "product_name field is required."
+                                                            ]
+                                                        }
+                                                    },
+                                                    "product_acquisition_date": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "example": [
+                                                                "product_acquisition_date field is required."
+                                                            ]
+                                                        }
+                                                    },
+                                                    "product_qty": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "example": [
+                                                                "product_qty field is required."
+                                                            ]
+                                                        }
+                                                    },
+                                                    "product_acquisition_cost": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "example": [
+                                                                "product_acquisition_cost field is required."
+                                                            ]
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Product Removal",
+                "operationId": "41dc11a94347f85cf633d449b10b1c83",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "description": "product_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": ""
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -321,13 +691,14 @@
                 "properties": {
                     "id": {
                         "description": "Class Product",
-                        "type": "integer"
+                        "type": "integer",
+                        "format": "int64"
                     },
                     "product_name": {
                         "type": "string"
                     },
                     "product_desc": {
-                        "type": "text"
+                        "type": "string"
                     },
                     "product_release_date": {
                         "type": "string",
@@ -338,10 +709,12 @@
                         "format": "date"
                     },
                     "product_qty": {
-                        "type": "unsignbiginteger"
+                        "type": "integer",
+                        "format": "int64"
                     },
                     "product_acquisition_cost": {
-                        "type": "decimal"
+                        "type": "number",
+                        "format": "decimal"
                     },
                     "created_at": {
                         "type": "string",
