@@ -87,23 +87,27 @@ class AttachmentController extends Controller
      */
     public function store(AttachmentRequest $request)
     {
-        $validated = $request->validated();
-        $file = $validated['file'];
+        try {
+            $validated = $request->all();
+            $file = $validated['file'];
 
-        $storage = app('firebase.storage');
-        $storagePath = 'product/' . $file->hashName();
+            $storage = app('firebase.storage');
+            $storagePath = 'product/' . $file->hashName();
 
-        $firebaseFile = $storage->getBucket()->upload(file_get_contents($file->getRealPath()), ['name' => $storagePath]);
+            $firebaseFile = $storage->getBucket()->upload(file_get_contents($file->getRealPath()), ['name' => $storagePath]);
+            $attachment = Attachment::create([
+                'hash_name' => $firebaseFile->name(),
+                'original_name' => $file->getClientOriginalName(),
+                'size' => round($file->getSize() / 1024, 2),
+                'mimetypes' => $file->getMimeType(),
+                'service_name' => 'firebase',
+            ]);
 
-        Attachment::create([
-            'hash_name' => $firebaseFile->name(),
-            'original_name' => $file->getClientOriginalName(),
-            'size' => round($file->getSize() / 1024, 2),
-            'mimetypes' => $file->getMimeType(),
-            'service_name' => 'firebase',
-        ]);
+            return new AttachmentResource($attachment);
+        } catch (\Throwable $th) {
+            return $this->sendError('Gagal Upload File', $th, code: 400);
+        }
 
-        return $this->sendSuccess([], 'Data berhasil disimpan.', 201);
     }
 
     /**
@@ -162,26 +166,30 @@ class AttachmentController extends Controller
      */
     public function update(AttachmentRequest $request, Attachment $attachment)
     {
-        $hash_name_old = $attachment->hash_name;
-        $validated = $request->validated();
-        $file = $validated['file'];
+        try {
+            $hash_name_old = $attachment->hash_name;
+            $validated = $request->all();
+            $file = $validated['file'];
 
-        $storage = app('firebase.storage');
-        $storagePath = 'product/' . $file->hashName();
+            $storage = app('firebase.storage');
+            $storagePath = 'product/' . $file->hashName();
 
-        $firebaseFile = $storage->getBucket()->upload(file_get_contents($file->getRealPath()), ['name' => $storagePath]);
+            $firebaseFile = $storage->getBucket()->upload(file_get_contents($file->getRealPath()), ['name' => $storagePath]);
 
-        $attachment->update([
-            'hash_name' => $firebaseFile->name(),
-            'original_name' => $file->getClientOriginalName(),
-            'size' => round($file->getSize() / 1024, 2),
-            'mimetypes' => $file->getMimeType(),
-        ]);
+            $attachment->update([
+                'hash_name' => $firebaseFile->name(),
+                'original_name' => $file->getClientOriginalName(),
+                'size' => round($file->getSize() / 1024, 2),
+                'mimetypes' => $file->getMimeType(),
+            ]);
 
-        //deleted file
-        $storage->getBucket()->object($hash_name_old)->delete();
+            //deleted file
+            $storage->getBucket()->object($hash_name_old)->delete();
 
-        return $this->sendSuccess(new AttachmentResource($attachment), 'Data berhasil dirubah.', 200);
+            return new AttachmentResource($attachment);
+        } catch (\Throwable $th) {
+            return $this->sendError('Terjadi kesalah saat melakukan perubahan file.', $th, 400);
+        }
     }
 
     /**
