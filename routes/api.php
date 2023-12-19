@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
@@ -22,3 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('category', CategoryController::class);
 Route::resource('product', ProductController::class);
+Route::resource('attachment', AttachmentController::class);
+Route::get('attachment/{attachment}/download', [\App\Http\Controllers\AttachmentController::class, 'download']);
