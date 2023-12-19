@@ -18,8 +18,8 @@ return new class extends Migration
             $table->float('size')->comment('in KiloBytes');
             $table->string('mimetypes');
             $table->string('service_name');
-            $table->timestamps();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

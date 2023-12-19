@@ -18,9 +18,9 @@ return new class extends Migration
             $table->date('product_release_date')->nullable(true);
             $table->date('product_acquisition_date');
             $table->unsignedBigInteger('product_qty');
-            $table->decimal('product_acquisition_cost', 10, 2);
-            $table->timestamps();
+            $table->float('product_acquisition_cost');
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
