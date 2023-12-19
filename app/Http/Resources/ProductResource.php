@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Attachment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,6 +24,7 @@ class ProductResource extends JsonResource
             'acquisition_cost' => $this->product_acquisition_cost,
             'release_date' => $this->product_release_date,
             'acquisition_date' => $this->product_acquisition_date,
+            'supporting_file' => new AttachmentResource(Attachment::find($this->storage)),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

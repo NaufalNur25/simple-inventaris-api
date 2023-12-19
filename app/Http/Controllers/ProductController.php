@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AttachmentRequest;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
+use App\Models\Attachment;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -126,7 +129,17 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        $product = Product::create($request->validated());
+        $attachment = [];
+        $supportingFile = data_get($request->validated(), 'file', null);
+        if ($supportingFile) {
+            $attachment = (new AttachmentController)->store(new AttachmentRequest(['file' => $supportingFile]));
+        }
+
+        $valueWithoutSupportingFile = Arr::except($request->validated(), 'file');
+        $product = Product::create(array_merge([
+            'supporting_file' => $attachment ? $attachment->original_name : null,
+            'storage' => $attachment ? $attachment->id : null,
+        ], $valueWithoutSupportingFile));
         $product->categories()->attach($request->validated('category_id'));
 
         return $this->sendSuccess(new ProductResource($product), 'Data berhasil disimpan.', 201);
@@ -214,7 +227,22 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        $product->update($request->validated());
+        $attachment = [];
+        $supportingFile = data_get($request->validated(), 'file', null);
+        if ($supportingFile) {
+            if ($product->storage) {
+                $attachment = (new AttachmentController())->update(new AttachmentRequest(['file' => $supportingFile]), Attachment::find($product->storage));
+            } else {
+                $attachment = (new AttachmentController)->store(new AttachmentRequest(['file' => $supportingFile]));
+            }
+        }
+
+        $file = [
+            'supporting_file' => $attachment ? $attachment->original_name : $product->supporting_file,
+            'storage' => $attachment ? $attachment->id : $product->storage,
+        ];
+
+        $product->update(array_merge($request->validated(), $file));
         $product->categories()->sync($request->validated('category_id'));
         $product = $product->fresh();
 
@@ -237,6 +265,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $product->storage ? (new AttachmentController)->destroy(Attachment::find($product->storage)) : null;
         $product->categories()->detach();
         $product->delete();
 

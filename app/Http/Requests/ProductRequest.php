@@ -30,6 +30,7 @@ class ProductRequest extends FormRequest
             'product_acquisition_date' => ['required', 'date'],
             'product_qty' => ['required', 'numeric', 'min:1'],
             'product_acquisition_cost' => ['required', 'numeric', 'min:100'],
+            'file' => ['nullable', 'file', 'mimes:png,jpg'],
         ];
     }
 }

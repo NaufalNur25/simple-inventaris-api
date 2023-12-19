@@ -20,8 +20,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *     @OA\Property(property="product_desc", type="string"),
  *     @OA\Property(property="product_release_date", type="string", format="date"),
  *     @OA\Property(property="product_acquisition_date", type="string", format="date"),
- *     @OA\Property(property="product_qty", type="integer", format="int64"),
- *     @OA\Property(property="product_acquisition_cost", type="number", format="decimal"),
+ *     @OA\Property(property="product_qty", type="integer"),
+ *     @OA\Property(property="product_acquisition_cost", type="number", format="bigint"),
  *     @OA\Property(property="created_at", type="string", format="date"),
  *     @OA\Property(property="updated_at", type="string", format="date"),
  *     @OA\Property(property="deleted_at", type="string", format="date"),
@@ -33,7 +33,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $product_release_date
  * @property string $product_acquisition_date
  * @property int $product_qty
- * @property decimal $product_acquisition_cost
+ * @property bigint $product_acquisition_cost
+ * @property string supporting_file
+ * @property bigint storage
  * @property string $created_at
  * @property string $updated_at
  * @property string $deleted_at
@@ -54,6 +56,8 @@ class Product extends Model
         'product_acquisition_date',
         'product_qty',
         'product_acquisition_cost',
+        'supporting_file',
+        'storage',
     ];
 
     public function categories(): BelongsToMany
@@ -62,6 +66,7 @@ class Product extends Model
     }
 
     protected $casts = [
-        'product_acquisition_cost' => 'float',
+        'product_acquisition_cost' => 'integer',
+        'product_qty' => 'integer',
     ];
 }

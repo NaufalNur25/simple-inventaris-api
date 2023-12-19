@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Attachment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -25,6 +26,7 @@ class ProductCollection extends ResourceCollection
                     'acquisition_cost' => $item->product_acquisition_cost,
                     'release_date' => $item->product_release_date,
                     'acquisition_date' => $item->product_acquisition_date,
+                    'supporting_file' => new AttachmentResource(Attachment::find($item->storage)),
                     'created_at' => $item->created_at,
                     'updated_at' => $item->updated_at,
                 ];
