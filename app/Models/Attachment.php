@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *      @OA\Property(property="id", type="int"),
  *      @OA\Property(property="hash_name", type="string"),
  *      @OA\Property(property="original_name", type="string"),
- *      @OA\Property(property="dokumen", type="file", example="dummy.pdf"),
  *      @OA\Property(property="size", type="string"),
  *      @OA\Property(property="mimetypes", type="string"),
  *      @OA\Property(property="service_name", type="string"),

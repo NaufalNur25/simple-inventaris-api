@@ -112,11 +112,11 @@ class AttachmentController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/attachment/{id}",
+     *      path="/attachment/{attachment}",
      *      tags={"Attachment"},
      *      summary="Attachment details",
      *
-     *      @OA\Parameter(in="path", required=true, name="id", @OA\Schema(type="integer"), description="Attachment ID"),
+     *      @OA\Parameter(in="path", required=true, name="attachment", @OA\Schema(type="integer"), description="Attachment ID"),
      *      @OA\Response(
      *          response=200,
      *          description="success",
@@ -130,11 +130,11 @@ class AttachmentController extends Controller
 
     /**
      * @OA\Post(
-     *      path="/attachment/{id}",
+     *      path="/attachment/{attachment}",
      *      tags={"Attachment"},
      *      summary="Update Attachment",
      *
-     *      @OA\Parameter(in="path", required=true, name="id", @OA\Schema(type="integer"), description="Attachment ID"),
+     *      @OA\Parameter(in="path", required=true, name="attachment", @OA\Schema(type="integer"), description="Attachment ID"),
      *      @OA\RequestBody(
      *          description="Body",
      *          required=true,
@@ -194,11 +194,11 @@ class AttachmentController extends Controller
 
     /**
      * @OA\Delete(
-     *      path="/attachment/{id}",
+     *      path="/attachment/{attachment}",
      *      tags={"Attachment"},
      *      summary="Attachment Removal",
      *
-     *      @OA\Parameter(in="path", required=true, name="id", @OA\Schema(type="integer"), description="Attachment ID"),
+     *      @OA\Parameter(in="path", required=true, name="attachment", @OA\Schema(type="integer"), description="Attachment ID"),
      *      @OA\Response(
      *          response=200,
      *          description="success",
@@ -228,11 +228,11 @@ class AttachmentController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/attachment/{id}/download",
+     *      path="/attachment/{attachment}/download",
      *      tags={"Attachment"},
      *      summary="Download Attachment",
      *
-     *      @OA\Parameter(in="path", required=true, name="id", @OA\Schema(type="integer"), description="Attachment ID"),
+     *      @OA\Parameter(in="path", required=true, name="attachment", @OA\Schema(type="integer"), description="Attachment ID"),
      *      @OA\Response(
      *          response=200,
      *          description="success",

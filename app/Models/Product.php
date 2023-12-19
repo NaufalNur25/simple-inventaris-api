@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *     @OA\Property(property="product_acquisition_date", type="string", format="date"),
  *     @OA\Property(property="product_qty", type="integer"),
  *     @OA\Property(property="product_acquisition_cost", type="number", format="bigint"),
+ *     @OA\Property(property="supporting_file", type="string"),
+ *     @OA\Property(property="storage", type="number", format="bigint"),
  *     @OA\Property(property="created_at", type="string", format="date"),
  *     @OA\Property(property="updated_at", type="string", format="date"),
  *     @OA\Property(property="deleted_at", type="string", format="date"),

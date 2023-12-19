@@ -12,6 +12,353 @@
         }
     ],
     "paths": {
+        "/attachment": {
+            "get": {
+                "tags": [
+                    "Attachment"
+                ],
+                "summary": "List of Attachment",
+                "operationId": "a14619aa3df1f832abf9cffa2d56c571",
+                "parameters": [
+                    {
+                        "name": "filter[original_name]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "original_name"
+                    },
+                    {
+                        "name": "filter[keyword]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "keyword"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "original_name"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "rows",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "10"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Attachment"
+                ],
+                "summary": "Store Attachment",
+                "operationId": "2a340a9c8c2fa0dc0cb1da77014e7935",
+                "requestBody": {
+                    "description": "Body",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "service_name": {
+                                        "type": "string"
+                                    },
+                                    "file[]": {
+                                        "description": "field file ini bertype array of file upload",
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data sukses disimpan."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "service_name": {
+                                            "type": "array",
+                                            "items": {
+                                                "example": [
+                                                    "service_name field is required."
+                                                ]
+                                            }
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "example": {
+                                                    "file": "the file field is required"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/attachment/{attachment}": {
+            "get": {
+                "tags": [
+                    "Attachment"
+                ],
+                "summary": "Attachment details",
+                "operationId": "686d610268cd85e1fb0f24b28f273b09",
+                "parameters": [
+                    {
+                        "name": "attachment",
+                        "in": "path",
+                        "description": "Attachment ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Attachment"
+                ],
+                "summary": "Update Attachment",
+                "operationId": "8300c633752c671b3424e1fedf2befa0",
+                "parameters": [
+                    {
+                        "name": "attachment",
+                        "in": "path",
+                        "description": "Attachment ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Body",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "file": {
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data sukses disimpan."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "file": {
+                                            "type": "array",
+                                            "items": {
+                                                "example": [
+                                                    "file_name field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Attachment"
+                ],
+                "summary": "Attachment Removal",
+                "operationId": "b6882f55b1e3af94143f9dfb1aa999c4",
+                "parameters": [
+                    {
+                        "name": "attachment",
+                        "in": "path",
+                        "description": "Attachment ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data sukses dihapus."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data tidak ditemukan."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/attachment/{attachment}/download": {
+            "get": {
+                "tags": [
+                    "Attachment"
+                ],
+                "summary": "Download Attachment",
+                "operationId": "311cef4ed6238b17297ee7d1e9d2adec",
+                "parameters": [
+                    {
+                        "name": "attachment",
+                        "in": "path",
+                        "description": "Attachment ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/pdf": {}
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "File tidak ditemukan."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/category": {
             "get": {
                 "tags": [
@@ -353,9 +700,13 @@
                     "description": "Body",
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "properties": {
+                                    "file": {
+                                        "description": "field file ini bertype array of file upload",
+                                        "type": "file"
+                                    },
                                     "category_id": {
                                         "type": "array",
                                         "items": {
@@ -514,9 +865,13 @@
                     "description": "Body",
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "properties": {
+                                    "file": {
+                                        "description": "field file ini bertype array of file upload",
+                                        "type": "file"
+                                    },
                                     "category_id": {
                                         "type": "array",
                                         "items": {
@@ -656,6 +1011,50 @@
     },
     "components": {
         "schemas": {
+            "Attachment": {
+                "title": "Attachment Model",
+                "description": "Attachment Model",
+                "properties": {
+                    "id": {
+                        "description": "Class Attachment",
+                        "type": "integer"
+                    },
+                    "hash_name": {
+                        "type": "string"
+                    },
+                    "original_name": {
+                        "type": "string"
+                    },
+                    "size": {
+                        "type": "string"
+                    },
+                    "mimetypes": {
+                        "type": "string"
+                    },
+                    "service_name": {
+                        "type": "string"
+                    },
+                    "deleted_at": {
+                        "type": "string"
+                    },
+                    "created_by": {
+                        "type": "integer"
+                    },
+                    "updated_by": {
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Attachment"
+                }
+            },
             "Category": {
                 "title": "Category Model",
                 "description": "Category Model",
@@ -709,12 +1108,18 @@
                         "format": "date"
                     },
                     "product_qty": {
-                        "type": "integer",
-                        "format": "int64"
+                        "type": "integer"
                     },
                     "product_acquisition_cost": {
                         "type": "number",
-                        "format": "decimal"
+                        "format": "bigint"
+                    },
+                    "supporting_file": {
+                        "type": "string"
+                    },
+                    "storage": {
+                        "type": "number",
+                        "format": "bigint"
                     },
                     "created_at": {
                         "type": "string",

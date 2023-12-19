@@ -74,20 +74,21 @@ class ProductController extends Controller
      *      summary="Store Product",
      *
      *      @OA\RequestBody(
-     *         description="Body",
-     *         required=true,
-     *
-     *         @OA\JsonContent(
-     *
-     *              @OA\Property(property="category_id", type="array", @OA\Items(type="integer")),
-     *              @OA\Property(property="product_name", ref="#/components/schemas/Product/properties/product_name"),
-     *              @OA\Property(property="product_desc", ref="#/components/schemas/Product/properties/product_desc"),
-     *              @OA\Property(property="product_release_date", ref="#/components/schemas/Product/properties/product_release_date"),
-     *              @OA\Property(property="product_acquisition_date", ref="#/components/schemas/Product/properties/product_acquisition_date"),
-     *              @OA\Property(property="product_qty", ref="#/components/schemas/Product/properties/product_qty"),
-     *              @OA\Property(property="product_acquisition_cost", ref="#/components/schemas/Product/properties/product_acquisition_cost"),
-     *
-     *         ),
+     *          description="Body",
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="multipart/form-data",
+     *              @OA\Schema(
+     *                  @OA\Property(property="file", type="file", description="field file ini bertype array of file upload"),
+     *                  @OA\Property(property="category_id", type="array", @OA\Items(type="integer")),
+     *                  @OA\Property(property="product_name", ref="#/components/schemas/Product/properties/product_name"),
+     *                  @OA\Property(property="product_desc", ref="#/components/schemas/Product/properties/product_desc"),
+     *                  @OA\Property(property="product_release_date", ref="#/components/schemas/Product/properties/product_release_date"),
+     *                  @OA\Property(property="product_acquisition_date", ref="#/components/schemas/Product/properties/product_acquisition_date"),
+     *                  @OA\Property(property="product_qty", ref="#/components/schemas/Product/properties/product_qty"),
+     *                  @OA\Property(property="product_acquisition_cost", ref="#/components/schemas/Product/properties/product_acquisition_cost"),
+     *              ),
+     *          ),
      *      ),
      *
      *      @OA\Response(
@@ -173,20 +174,21 @@ class ProductController extends Controller
      *      @OA\Parameter(in="path", required=true, name="product", @OA\Schema(type="integer"), description="product_id"),
      *
      *      @OA\RequestBody(
-     *         description="Body",
-     *         required=true,
-     *
-     *         @OA\JsonContent(
-     *
-     *              @OA\Property(property="category_id", type="array", @OA\Items(type="integer")),
-     *              @OA\Property(property="product_name", ref="#/components/schemas/Product/properties/product_name"),
-     *              @OA\Property(property="product_desc", ref="#/components/schemas/Product/properties/product_desc"),
-     *              @OA\Property(property="product_release_date", ref="#/components/schemas/Product/properties/product_release_date"),
-     *              @OA\Property(property="product_acquisition_date", ref="#/components/schemas/Product/properties/product_acquisition_date"),
-     *              @OA\Property(property="product_qty", ref="#/components/schemas/Product/properties/product_qty"),
-     *              @OA\Property(property="product_acquisition_cost", ref="#/components/schemas/Product/properties/product_acquisition_cost"),
-     *
-     *         ),
+     *          description="Body",
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="multipart/form-data",
+     *              @OA\Schema(
+     *                  @OA\Property(property="file", type="file", description="field file ini bertype array of file upload"),
+     *                  @OA\Property(property="category_id", type="array", @OA\Items(type="integer")),
+     *                  @OA\Property(property="product_name", ref="#/components/schemas/Product/properties/product_name"),
+     *                  @OA\Property(property="product_desc", ref="#/components/schemas/Product/properties/product_desc"),
+     *                  @OA\Property(property="product_release_date", ref="#/components/schemas/Product/properties/product_release_date"),
+     *                  @OA\Property(property="product_acquisition_date", ref="#/components/schemas/Product/properties/product_acquisition_date"),
+     *                  @OA\Property(property="product_qty", ref="#/components/schemas/Product/properties/product_qty"),
+     *                  @OA\Property(property="product_acquisition_cost", ref="#/components/schemas/Product/properties/product_acquisition_cost"),
+     *              ),
+     *          ),
      *      ),
      *
      *      @OA\Response(
